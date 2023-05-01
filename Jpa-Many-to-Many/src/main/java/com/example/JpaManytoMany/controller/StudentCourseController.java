@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.JpaManytoMany.entity.Course;
 import com.example.JpaManytoMany.entity.Student;
-import com.example.JpaManytoMany.repository.CourseRepository;
-import com.example.JpaManytoMany.repository.StudentRepository;
+import com.example.JpaManytoMany.repository.Courserepository;
+import com.example.JpaManytoMany.repository.Studentrepository;
 
 @RestController
 @RequestMapping("/student/course")
 public class StudentCourseController {
 	@Autowired
-	private StudentRepository studentrepo;
+	private Studentrepository studentrepo;
+
 	
 	@PostMapping
 	public Student saveStudentWithCourse(@RequestBody Student student) {
@@ -29,28 +30,16 @@ public class StudentCourseController {
 	public List<Student> findAllStudents(){
 		return studentrepo.findAll();
 	}
-	@GetMapping("/{studentid}")
-	public Student findStudent(@PathVariable Long studentid) {
-		return studentrepo.findById(studentid).orElse(null);
-	}
+    @GetMapping("/{studentid}")
+	public Student  findStudent(@PathVariable Long studentid) {
+	   return studentrepo.findById(studentid).orElse(null);
+    }
     @GetMapping("/find/{name}")
     public List<Student> findStudentByName(@PathVariable String name){
     	return studentrepo.findByName(name);
-    	
     }
-   // @GetMapping("/search/{price}")
-   // public List<Course> findCourselessthanprice(@PathVariable double price){
-    //	return courserepo.findlessthanprice(price);
-    
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+//    @GetMapping("/search/{price}")
+//    public List<Course> findCourselessthanprice(@PathVariable double price){
+//    	return courserepo.findlessthanprice(price);
+//    } 
+}

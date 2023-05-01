@@ -25,15 +25,31 @@ public class Student {
 	private int age;
 	private String dept;
 	
+	@ManyToMany(fetch=FetchType.LAZY ,cascade=CascadeType.ALL)
+	@JoinTable(name="STUDENT_COURSE_TBL",
+	       joinColumns={
+	    		   @JoinColumn(name="student_id",referencedColumnName="id")
+	       },
+     inverseJoinColumns= {
+			@JoinColumn(name="course_id",referencedColumnName="id")
+	 })
+    
+	@JsonBackReference
+	private Set<Course>  course;
+    
 	public Student(long id, String name, int age, String dept, Set<Course> course) {
+		
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.dept = dept;
 		this.course = course;
 	}
+	
 	public Student() {
+		
 	}
+
 	public long getId() {
 		return id;
 	}
@@ -73,32 +89,6 @@ public class Student {
 	public void setCourse(Set<Course> course) {
 		this.course = course;
 	}
-
-	@ManyToMany(fetch=FetchType.LAZY ,cascade=CascadeType.ALL)
-	@JoinTable(name="STUDENT_COURSE_TBL",
-		joinColumns= {
-				
-				@JoinColumn(name="student_id",referencedColumnName="id")
-	},
-
-	inverseJoinColumns= {
-			@JoinColumn(name="course_id",referencedColumnName="id")
-	})
-	@JsonBackReference
-	private Set<Course> course;	
 	
+
 }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
- 
